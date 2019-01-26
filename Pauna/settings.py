@@ -35,7 +35,7 @@ INSTALLED_APPS = [
     # 'django_countries',
     
     'guide.apps.GuideConfig',
-    #'crispy_forms',
+    'crispy_forms',
     'django.contrib.admin',
     'django.contrib.auth',
     'django.contrib.contenttypes',

@@ -2,17 +2,26 @@
 <!DOCTYPE html>
 <html>
     <head>
+        <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css" integrity="sha384-BVYiiSIFeK1dGmJRAkycuHAHRg32OmUcww7on3RYdg4Va+PmSTsz/K68vbdEjh4u" crossorigin="anonymous">
         <title>
 
         </title>
     </head>
     <body>
-        <div class="container">
-                <form method="POST">
+        
+        <div class="container" style="width:900px; margin:0 auto;">
+            <strong><h3>Register and be a part of Pauna</h3></strong>
+            <div class="col-sm-6">
+                <div class="panel-heading"></div>
+                <div class="panel-body" style="border-style: rounded;">
+               <form method="POST">
                         {% csrf_token %}
                         {{ form|crispy }}
-                        <button type="submit">Sign up</button>
+                        <button type="submit"class="btn btn-primary">Sign up</button>
                       </form>
+                </div>
+            </div>
+               
         </div>
     </body>
 </html>
