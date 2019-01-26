@@ -33,7 +33,7 @@ ALLOWED_HOSTS = []
 
 INSTALLED_APPS = [
     # 'django_countries',
-    
+
     'guide.apps.GuideConfig',
     'crispy_forms',
     'django.contrib.admin',
@@ -127,3 +127,5 @@ STATICFILES_DIRS = [
     STATIC_DIR,
 ]
 CRISPY_TEMPLATE_PACK = 'bootstrap4'
+
+LOGIN_REDIRECT_URL='home'

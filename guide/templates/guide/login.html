@@ -10,20 +10,25 @@
     <body>
 
         <div class="container" style="width:900px; margin:0 auto;">
-            <strong><h3>Register and be a part of Pauna</h3></strong>
+            <strong><h3>Welcome Back!</h3></strong>
             <div class="col-sm-6">
                 <div class="panel-heading"></div>
                 <div class="panel-body" style="border-style: rounded;">
                <form method="POST">
-                        {% csrf_token %}
+                  {% csrf_token %}
+                    <fieldset class="form-group">
+                      <legend class="border-bottom mb-4">Join Today</legend>
                         {{ form|crispy }}
-                        <button type="submit"class="btn btn-primary">Sign up</button>
-                      </form>
+                    </fieldset>
+                    <div class="form-group">
+                      <button type="submit"class="btn btn-primary">Log in</button>
+                    </div>
+                </form>
                 </div>
             </div>
             <div class="border-top pt-3">
               <small class="text-muted">
-                Already Have An Account?<a class ml-2 href={% url 'login' %}>Log In</a>
+                Not a member yet?<a class ml-2 href="#">Sign up</a>
               </small>
         </div>
     </body>
