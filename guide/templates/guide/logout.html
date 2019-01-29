@@ -1,3 +1,4 @@
+{% extends "guide/base.html" %}
 <!DOCTYPE html>
 <html>
     <head>
@@ -7,11 +8,13 @@
         </title>
     </head>
     <body>
+            {% block content %}
             <div class="border-top pt-3">
-              <small class="text-muted">
-              <h2> You have been logged out </h2>
-              <a href="login.html">Sign up</a>
-              </small>
-        </div>
+                <small class="text-muted">
+                <h2> You have been logged out </h2>
+                <a href="login.html">Sign up</a>
+                </small>
+            </div>
+            {% endblock content %}
     </body>
 </html>

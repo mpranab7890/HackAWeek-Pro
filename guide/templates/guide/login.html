@@ -1,3 +1,4 @@
+{% extends "guide/base.html" %}
 {% load crispy_forms_tags %}
 <!DOCTYPE html>
 <html>
@@ -8,7 +9,7 @@
         </title>
     </head>
     <body>
-
+        {% block content %}
         <div class="container" style="width:900px; margin:0 auto;">
             <strong><h3>Welcome Back!</h3></strong>
             <div class="col-sm-6">
@@ -31,5 +32,6 @@
                 Not a member yet?<a class ml-2 href="{% url 'register' %}">Sign up</a>
               </small>
         </div>
+        {% endblock content %}
     </body>
 </html>

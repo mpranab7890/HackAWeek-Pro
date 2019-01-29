@@ -1,8 +1,9 @@
 from django.shortcuts import render,redirect
 from django.http import HttpResponse
-from .forms import RegistrationForm
+from .forms import RegistrationForm, ServiceForm
 from django.contrib import messages
-# from .models import UserProfile
+from .models import UserServices
+from django.contrib.auth.decorators import login_required
 from django.contrib.auth.models import User
 
 from django.forms.models import inlineformset_factory
@@ -22,4 +23,26 @@ def register(request):
      else:
           form=RegistrationForm()
      return render(request, 'guide/register.html', {'form':form})
-# Create your views here.
+
+@login_required
+def dashboard(request):
+     return render(request , 'guide/dashboard.html')
+
+@login_required
+def setService(request):
+     u = UserServices.objects.get(user=request.user)
+     if request.method=='POST':
+          # data = request.POST.copy()
+          # data.update({'user': request.user.pk })
+          s_form = ServiceForm( request.POST , request.FILES , instance = u)
+          if s_form.is_valid():
+               # s_form.user = request.user
+               s_form.save()
+               # x.user = request.user
+               # x.save()
+               return redirect('dashboard')
+     else:
+          s_form = ServiceForm(instance = u)
+     return render(request , 'guide/service.html', {'s_form':s_form})
+
+     

@@ -1,7 +1,7 @@
 from django import forms
 from django.contrib.auth.models import User
 from django.contrib.auth.forms import UserCreationForm
-
+from .models import UserServices
 
 
 class RegistrationForm (UserCreationForm):
@@ -10,8 +10,16 @@ class RegistrationForm (UserCreationForm):
         model = User
         fields = ['first_name', 'last_name','username', 'email', 'password1', 'password2']
 
-
+class ServiceForm(forms.ModelForm):
     
+    class Meta:
+        model = UserServices
+        fields = ['name_of_service', 'location','type_of_service','details','image','user']
+        widgets = {
+            'user': forms.HiddenInput,
+        }
+
+
 # def save(self, commit=True):
 #     instance = super(RegistrationForm, self).save(commit=False)
 #     instance.user = self.user

@@ -8,12 +8,20 @@ from django.dispatch import receiver
 #     email = models.EmailField( max_length=254)
 #     country = models.CharField( max_length=50)
 
+class UserServices (models.Model):
+    user = models.OneToOneField(User,on_delete=models.CASCADE)
+    name_of_service = models.CharField(default = 'Unknown',max_length=50)
+    location = models.CharField(max_length = 100)
+    type_of_service = models.CharField(blank = False , max_length=50)
+    details = models.TextField()
+    image= models.ImageField( upload_to='service_pics')
 
-# def create_profile(sender, **kwargs):
-#     user = kwargs["instance"]
-#     if kwargs["created"]:
-#         user_profile = UserProfile(user=user)
-#         user_profile.save()
-# post_save.connect(create_profile, sender=User)
+
+
+    def __str__(self):
+        return self.name_of_service
+
+    
+
 
 # Create your models here.
