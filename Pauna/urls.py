@@ -25,7 +25,8 @@ urlpatterns = [
     path('register/', views.register, name='register'),
     path('login/',auth_views.LoginView.as_view(template_name='guide/login.html'),name='login'),
     path('logout/',auth_views.LogoutView.as_view(template_name='guide/index.html'),name='logout'),
-    path('dashboard/',include('guide.urls'))
+    path('dashboard/',include('guide.urls')),
+    path('posts/<int:pk>/' , views.UserServicesDetailView.as_view(), name = 'posts'),
 ]
 
 if settings.DEBUG:

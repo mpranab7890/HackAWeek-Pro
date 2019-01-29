@@ -5,7 +5,7 @@ from django.contrib import messages
 from .models import UserServices
 from django.contrib.auth.decorators import login_required
 from django.contrib.auth.models import User
-from django.views.generic import ListView
+from django.views.generic import DetailView
 
 from django.forms.models import inlineformset_factory
 def home(request):
@@ -52,3 +52,7 @@ def setService(request):
 @login_required
 def Profile(request):
      return render(request , 'guide/profile.html')
+
+class UserServicesDetailView(DetailView):
+    model = UserServices
+    template_name = "guide/posts.html"

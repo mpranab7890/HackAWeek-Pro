@@ -14,7 +14,8 @@ class ServiceForm(forms.ModelForm):
     
     class Meta:
         model = UserServices
-        fields = ['name_of_service', 'location','type_of_service','details','image','user']
+
+        fields = ['name_of_service', 'location','short_description', 'type_of_service','total_cost', 'details','image','special_features' ,'user']
         widgets = {
             'user': forms.HiddenInput,
         }
