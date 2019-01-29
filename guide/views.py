@@ -5,6 +5,7 @@ from django.contrib import messages
 from .models import UserServices
 from django.contrib.auth.decorators import login_required
 from django.contrib.auth.models import User
+from django.views.generic import ListView
 
 from django.forms.models import inlineformset_factory
 def home(request):
@@ -26,7 +27,10 @@ def register(request):
 
 @login_required
 def dashboard(request):
-     return render(request , 'guide/dashboard.html')
+     context = {
+          'posts': UserServices.objects.all
+     }
+     return render(request , 'guide/dashboard.html' , context)
 
 @login_required
 def setService(request):
@@ -45,4 +49,6 @@ def setService(request):
           s_form = ServiceForm(instance = u)
      return render(request , 'guide/service.html', {'s_form':s_form})
 
-     
+@login_required
+def Profile(request):
+     return render(request , 'guide/profile.html')
