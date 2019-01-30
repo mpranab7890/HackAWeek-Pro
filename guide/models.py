@@ -11,11 +11,11 @@ from django.dispatch import receiver
 class UserServices (models.Model):
     user = models.OneToOneField(User,on_delete=models.CASCADE)
     name_of_service = models.CharField(max_length=50)
-    short_description = models.CharField(max_length = 100 , help_text = "Short description of your service(2 to 3 sentences)")
+    short_description = models.CharField(max_length = 150 , help_text = "Short description of your service(2 to 3 sentences)")
     location = models.CharField(max_length = 100)
     type_of_service = models.CharField(blank = False , max_length=50)
     details = models.TextField()
-    total_cost = models.IntegerField(help_text="In nRs")
+    # total_cost = models.IntegerField(help_text="In nRs" , null = True)
     special_features = models.TextField(blank = True , help_text = "Mention unique/special features if any")
     image= models.ImageField( upload_to='service_pics')
 
