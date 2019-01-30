@@ -1,11 +1,16 @@
-from django.shortcuts import render,redirect
+from django.shortcuts import render,redirect,get_object_or_404
 from django.http import HttpResponse
-from .forms import RegistrationForm, ServiceForm
+from .forms import RegistrationForm, ServiceForm ,ReviewForm
 from django.contrib import messages
-from .models import UserServices
+from .models import UserServices, Review
 from django.contrib.auth.decorators import login_required
 from django.contrib.auth.models import User
 from django.views.generic import DetailView
+# from annoying.decorators import render_to
+
+from django.shortcuts import render_to_response
+from django.template import RequestContext
+
 
 from django.forms.models import inlineformset_factory
 def home(request):
@@ -53,6 +58,40 @@ def setService(request):
 def Profile(request):
      return render(request , 'guide/profile.html')
 
-class UserServicesDetailView(DetailView):
-    model = UserServices
-    template_name = "guide/posts.html"
+# class UserServicesDetailView(DetailView):
+#      template_name = "guide/posts.html"
+
+#      model = UserServices
+     
+#      form_class = ReviewForm
+#      success_url = '/dashboard/'
+
+#      def form_valid(self, form):
+#         # This method is called when valid form data has been POSTed.
+#         # It should return an HttpResponse.
+#         form.save()
+#         return super().form_valid(form)
+     # p = Review.objects.get(posts = post.id)
+     #      if request.method=='POST':
+     #           r_form = ReviewForm( request.POST , request.FILES , instance = p)
+     #           if r_form.is_valid():
+     #                r_form.save()
+     #                      return redirect('posts')
+     #           else:
+     #                r_form = ReviewForm(instance = p)
+
+
+# @render_to('guide/posts.html')
+# def commentView(request):
+#      if request.method=='POST':
+#                r_form = ReviewForm( request.POST )
+#                if r_form.is_valid():
+#                     r_form.save()
+#                     return redirect('posts')
+#                else:
+#                     r_form = ReviewForm()
+
+def DetailView(request,pk):
+     # post = get_object_or_404(UserServices, slug=slug)
+     post = UserServices.objects.get(pk=pk)
+     return render(request ,'guide/posts.html', {'post': post})

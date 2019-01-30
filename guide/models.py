@@ -33,3 +33,11 @@ class Profile(models.Model) :
         return f'{self.user.username} Profile'
 
 # Create your models here.
+
+class Review(models.Model):
+    posts = models.ForeignKey(UserServices , related_name = 'Reviews',on_delete=models.CASCADE)
+    review = models.TextField(blank = True)
+
+    def __str__(self):
+        return f'{self.posts.name_of_service} Reviews'
+    

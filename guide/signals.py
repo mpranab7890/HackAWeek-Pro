@@ -22,7 +22,15 @@ def create_profile1(sender, instance, created, **kwargs):
         instance.profile.save()
     except ObjectDoesNotExist:
         Profile.objects.create(user = instance)
+
+
+@receiver(post_save, sender=UserServices)
+def create_profile2(sender, instance, created, **kwargs):
+    try:
+        
+        instance.review.save()
+    except ObjectDoesNotExist:
+        Review.objects.create(posts = instance)
 # @receiver(post_save, sender=User)
 # def save_profile(sender, instance, **kwargs):
 #     instance.userservi.save()
-    

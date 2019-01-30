@@ -1,7 +1,7 @@
 from django import forms
 from django.contrib.auth.models import User
 from django.contrib.auth.forms import UserCreationForm
-from .models import UserServices
+from .models import UserServices , Review
 
 
 class RegistrationForm (UserCreationForm):
@@ -18,6 +18,15 @@ class ServiceForm(forms.ModelForm):
         fields = ['name_of_service', 'location','short_description', 'type_of_service', 'details','image','special_features' ,'user']
         widgets = {
             'user': forms.HiddenInput,
+        }
+
+class ReviewForm(forms.ModelForm):
+    
+    class Meta:
+        model = Review
+        fields = ['review']
+        widgets = {
+            'posts': forms.HiddenInput,
         }
 
 

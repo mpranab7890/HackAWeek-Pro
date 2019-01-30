@@ -28,9 +28,9 @@ img{
 </style>
 <div id="post-header" class="page-header">
 				<div class="background-img" 
-						{% comment %} {% if {{object.name_of_service}} == 'Homestay' %} {% endcomment %}
+						{% comment %} {% if {{post.name_of_service}} == 'Homestay' %} {% endcomment %}
                          style="background-image: url({% static 'img/homestay.jpg' %})"
-						{% comment %} {% elif {{object.name_of_service}} == 'Transportation' %}
+						{% comment %} {% elif {{post.name_of_service}} == 'Transportation' %}
 							style="background-image: url({% static 'img/transport.jpg' %})"
 						{% else %}
 							style="background-image: url({% static 'img/travel-agency.jpg' %})" {% endcomment %}
@@ -39,10 +39,10 @@ img{
 					<div class="row">
 						<div class="col-md-10">
 							<div class="post-meta">
-								<a class="post-category cat-2" href="#">{{object.type_of_service}}</a>
+								<a class="post-category cat-2" href="#">{{post.type_of_service}}</a>
 								<span class="post-date"> </span>
 							</div>
-							<h1>{{object.name_of_service}}</h1>
+							<h1>{{post.name_of_service}}</h1>
 						</div>
 					</div>
 				</div>
@@ -59,27 +59,27 @@ img{
 					<div class="col-md-8">
 						<div class="section-row sticky-container">
 							<div class="main-post">
-								<small>Service Provider: </small>  <a href="#">{{object.user.username}}</a>
+								<small>Service Provider: </small>  <a href="#">{{post.user.username}}</a>
 								<br>
 								<br>
-								<blockquote>{{object.short_description}}</blockquote>
+								<blockquote>{{post.short_description}}</blockquote>
 							
 								<br>
-								<p> {{object.details}} </p>
+								<p> {{post.details}} </p>
 								<figure class="figure-img">
 									
-                                    {% if object.image %}
-                                        <img src="{{ object.image.url }}" alt="">
+                                    {% if post.image %}
+                                        <img src="{{ post.image.url }}" alt="">
                                         {% endif %}
 									<figcaption></figcaption>
 								</figure>
 
-								{% if object.special_features%}
+								{% if post.special_features%}
 									 <h2>Special Features</h2>
-									 <p>{{object.special_features}}</p>
+									 <p>{{post.special_features}}</p>
 
 								{%endif%}
-
+								
 		 					</div>
 					  	</div>
 					</div>

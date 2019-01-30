@@ -33,7 +33,7 @@ ALLOWED_HOSTS = []
 
 INSTALLED_APPS = [
     # 'django_countries',
-
+    # 'annoying'
     'guide.apps.GuideConfig',
     'crispy_forms',
     'django.contrib.admin',
