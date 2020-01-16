@@ -9,6 +9,21 @@
 crossorigin="anonymous">
 	<meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
 	<link rel="icon" href="{%static "img/fevicon.png"%}" type="image/png">
+
+	 <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+
+    <title>Namastey Services</title>
+	    <link rel="stylesheet" href="{% static 'css/gijgo.min.css'%}">
+
+    <!-- Bootstrap CSS CDN -->
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.1.0/css/bootstrap.min.css" integrity="sha384-9gVQ4dYFwwWSjIDZnLEWnxCjeSWFphJiwGPXr1jddIhOegiu1FwO5qRGvFXOdJZ4" crossorigin="anonymous">
+    <!-- Our Custom CSS -->
+    <link rel="stylesheet" href="{% static 'css/nav.css'%}">
+
+    <!-- Font Awesome JS -->
+    <script defer src="https://use.fontawesome.com/releases/v5.0.13/js/solid.js" integrity="sha384-tzzSw1/Vo+0N5UhStP3bvwWPq+uvzCMfrN1fEFe+xBmv1C/AtVX5K0uZtmcHitFZ" crossorigin="anonymous"></script>
+    <script defer src="https://use.fontawesome.com/releases/v5.0.13/js/fontawesome.js" integrity="sha384-6OIrr52G08NpOFSZdxxz1xdNSndlD4vdcf/q2myIUVO0VsqaGHJsB0RaBE01VTOY" crossorigin="anonymous"></script>
 	<title>Namaste Homestay</title>
 	<!-- Bootstrap CSS -->
 	<link rel="stylesheet" href="{%static "css/bootstrap.css"%}">
@@ -31,6 +46,8 @@ crossorigin="anonymous">
 header {
   background-color: black;
 }
+
+
 </style>
 
 
@@ -52,40 +69,226 @@ header {
 						<!-- Collect the nav links, forms, and other content for toggling -->
 						<div class="collapse navbar-collapse offset" id="navbarSupportedContent">
 							<ul class="nav navbar-nav menu_nav ml-auto">
-								<li class="nav-item active"><a class="nav-link" href="index.html">Home</a></li>
+								{% if user.is_authenticated %}
+									<li class="nav-item active"><a class="nav-link" href="/dashboard">Home</a></li>
+								{% else %}
+									<li class="nav-item active"><a class="nav-link" href="{% url 'index' %}">Home</a></li>									
+								{% endif %}
+								
 								<li class="nav-item"><a class="nav-link" href="#about-us">About</a></li>
-								<li class="nav-item"><a class="nav-link" href="#causes">Places</a>
 								<li class="nav-item"><a class="nav-link" href="#contact">Contact</a></li>
 								
 								{%if user.is_authenticated%}
 									<li class="nav-item"><a class="nav-link" href="{% url 'profile' %}">Profile</a></li>
 									<li class="nav-item"><a class="nav-link" href="{% url 'logout' %}">Log Out</a></li>
+								
+									
 									
 								{%else%}
 									<li class="nav-item"><a class="nav-link" href="{% url 'login' %}">Log In</a></li>
 									<li class="nav-item"><a class="nav-link" href="{% url 'register' %}">Register</a></li>
 
 								{%endif%}
+								 <!-- <li class="nav-item"><button id="modalbtn" class="nav-link"><img src="{% static 'img/search.png'%}"
+                                                alt=""></button></li>  -->
+
 								
             		  </ul>
+					  {% if user.is_authenticated %}
+							<div style=" 
+        border-radius: 25px;
+        padding: 20px;
+        top: 100px;
+        right: -300px;
+        float: right;
+        position: relative;>
+                 <div class="col-md-3">
+                    <a href="{% url 'ServiceForm' %}" id="b" style="background-color: forestgreen;color: white;border-radius: 10px;" class="btn btn-default btn-lg btn-block btn-huge">REGISTER YOUR SERVICE</a>
+                </div>	  
+                </div>
+
+
+                        <div style=" 
+        border-radius: 25px;
+        padding: 20px;
+        top: 1px;
+        right: -150px;
+        float: right;
+        position: relative;>
+                <div class="media">
+        <img class="rounded-circle account-img" src="{{ user.profile.profile_pic.url }}">
+        <div class="media-body">
+          <!-- <h1 class="account-heading">{{ user.username }}</h1> -->
+          <a href="{% url 'profile' %}" class="account-heading" style="color:white">{{ user.username }} </a>
+        </div>
+        </div>
+        </div>
+
+
+
+	<!-- <div style=" border-radius: 20px;padding: 20px;top: 20px;right: -70px;float: right;position: relative; >
+		<div class="media">
+        <img class="rounded-circle account-img" src="{{ user.profile.profile_pic.url }}">
+        <div class="media-body">
+          <h2 class="account-heading">{{ user.username }}</h2>
+        </div>
+      </div> -->
+    
+            </div>
+					  {% endif %}
+					 
 						</div>
 					</div>
 				</nav>
 			</div>
 		</div>
+		nav
 	</header>
 	<br>
 	<br>
 	<br>
 	<br>
-	<body>
+	{% comment %} <body style="background-image: url({% static 'img/back.jpg' %});background-size: cover;"> {% endcomment %}
+		<body>
 		<br>
 		{% block content %}
   		{% endblock %}
-	</body>
+		</body>
+		{% comment %} {% if user.is_authenticated%}
+			<div class="wrapper">
+        <!-- Sidebar  -->
+        <nav id="sidebar">
+            <div class="sidebar-header">
+                <h3>Namastey Services</h3>
+            </div>
+
+            <ul class="list-unstyled components">
+                <p>Dummy Heading</p>
+                <li class="active">
+                    <a href="#homeSubmenu" data-toggle="collapse" aria-expanded="false" class="dropdown-toggle">Home</a>
+                    <ul class="collapse list-unstyled" id="homeSubmenu">
+                        <li>
+                            <a href="#">Home 1</a>
+                        </li>
+                        <li>
+                            <a href="#">Home 2</a>
+                        </li>
+                        <li>
+                            <a href="#">Home 3</a>
+                        </li>
+                    </ul>
+                </li>
+                <li>
+                    <a href="#">About</a>
+                </li>
+                <li>
+                    <a href="#pageSubmenu" data-toggle="collapse" aria-expanded="false" class="dropdown-toggle">Pages</a>
+                    <ul class="collapse list-unstyled" id="pageSubmenu">
+                        <li>
+                            <a href="#">Page 1</a>
+                        </li>
+                        <li>
+                            <a href="#">Page 2</a>
+                        </li>
+                        <li>
+                            <a href="#">Page 3</a>
+                        </li>
+                    </ul>
+                </li>
+                <li>
+                    <a href="#">Portfolio</a>
+                </li>
+                <li>
+                    <a href="#">Contact</a>
+                </li>
+            </ul>
+
+           
+        </nav>
+		{% endif%} {% endcomment %}
+		
+	
+	<footer>
+			<div class="footer-area">
+				<div class="container">
+					<div class="row section_gap">
+						<div class="col-lg-3 col-md-6 col-sm-6">
+							<div class="single-footer-widget tp_widgets">
+								<h4 class="footer_title large_title">Our Mission</h4>
+								<p>
+									Travel isn’t just about location on maps or stamp on passports. Travel is about people. </p>
+								<p>
+									We let you book to stay with the local at their own home so you can get right to the heart of a place that
+									turn
+									location into culture; time into experience; and strangers into friend.
+								</p>
+								<p> So don’t just visit. LIVE it.
+								</p>
+							</div>
+						</div>
+						<div class="offset-lg-1 col-lg-2 col-md-6 col-sm-6">
+							<div class="single-footer-widget tp_widgets">
+								<h4 class="footer_title">Quick Links</h4>
+								<ul class="list">
+									<li><a href="index.html">Home</a></li>
+									<li><a href="about-us.html">About</a></li>
+									<li><a href="causes.html">Causes</a></li>
+									<li><a href="events.html">Event</a></li>
+									<li><a href="contact.html">Contact</a></li>
+								</ul>
+							</div>
+						</div>
+						<div class="col-lg-2 col-md-6 col-sm-6">
+							<div class="single-footer-widget instafeed">
+								<h4 class="footer_title">Gallery</h6>
+									<ul class="list instafeed d-flex flex-wrap">
+										<li><img src="{% static "img/gallery/g1.jpg"%}" alt=""></li>
+										<li><img src="{% static "img/gallery/g2.jpg"%}" alt=""></li>
+										<li><img src="{% static "img/gallery/g3.jpg"%}" alt=""></li>
+										<li><img src="{% static "img/gallery/g4.jpg"%}" alt=""></li>
+										<li><img src="{% static "img/gallery/g5.jpg"%}" alt=""></li>
+										<li><img src="{% static "img/gallery/g6.jpg"%}" alt=""></li>
+									</ul>
+							</div>
+						</div>
+						<div class="offset-lg-1 col-lg-3 col-md-6 col-sm-6">
+							<div class="single-footer-widget tp_widgets">
+								<h4 class="footer_title">Contact Us</h4>
+								<div class="ml-40">
+									<p class="sm-head">
+										<span class="fa fa-location-arrow"></span>
+										Head Office
+									</p>
+									<p>Mero Ghar, Nepal</p>
+
+									<p class="sm-head">
+										<span class="fa fa-phone"></span>
+										Phone Number
+									</p>
+									<p>
+										+977 555 5555<br>
+										+977 555 5555
+									</p>
+
+									<p class="sm-head">
+										<span class="fa fa-envelope"></span>
+										Email
+									</p>
+									<p>
+										outlook@pranab.com
+										gmail@kushal.com <br>
+										yahooo@prabin.com <br>
+									</p>
+								</div>
+							</div>
+						</div>
+					</div>
+				</div>
+			</div>
+		</footer>
 	
  
-
+<script src="{% static 'js/gijgo.min.js' %}" charset="utf-8"></script>
   <script src="{% static "js/jquery-3.2.1.min.js" %}" ></script>
   <script src="{% static "js/popper.js" %}"></script>
   <script src="{% static "js/bootstrap.min.js" %}"></script>
@@ -99,4 +302,35 @@ header {
   <script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyCjCGmQ0Uq4exrzdcL6rvxywDDOvfAu6eE"></script>
   <script src="{% static "js/gmaps.min.js" %}"></script>
   <script src="{% static "js/theme.js" %}"></script>
+   <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js" integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo" crossorigin="anonymous"></script>
+    <!-- Popper.JS -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.0/umd/popper.min.js" integrity="sha384-cs/chFZiN24E4KMATLdqdvsezGxaGsi4hLGOzlXwp5UZB1LY//20VyM2taTB4QvJ" crossorigin="anonymous"></script>
+    <!-- Bootstrap JS -->
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.1.0/js/bootstrap.min.js" integrity="sha384-uefMccjFJAIv6A+rW+L4AHf99KvxDjWSu1z9VI8SKNVmz4sk7buKt/6v9KI65qnm" crossorigin="anonymous"></script>
+    <script src="js/jquery-3.2.1.min.js"></script>
+    <script src="js/popper.js"></script>
+    <script src="js/bootstrap.min.js"></script>
+    <script src="js/stellar.js"></script>
+    <script src="vendors/lightbox/simpleLightbox.min.js"></script>
+    <script src="vendors/nice-select/js/jquery.nice-select.min.js"></script>
+    <script src="js/jquery.ajaxchimp.min.js"></script>
+    <script src="js/mail-script.js"></script>
+    <!-- contact js -->
+    <script src="js/jquery.form.js"></script>
+    <script src="js/jquery.validate.min.js"></script>
+    <script src="js/contact.js"></script>
+    <!--gmaps Js-->
+    <script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyCjCGmQ0Uq4exrzdcL6rvxywDDOvfAu6eE"></script>
+    <script src="js/gmaps.min.js"></script>
+    <script src="js/theme.js"></script>
+    <script type="text/javascript">
+     <script src="vendor/jquery/jquery.min.js"></script>
+    <!-- Vendor JS-->
+    <script src="vendor/select2/select2.min.js"></script>
+    <script src="vendor/jquery-validate/jquery.validate.min.js"></script>
+    <script src="vendor/bootstrap-wizard/bootstrap.min.js"></script>
+    <script src="vendor/bootstrap-wizard/jquery.bootstrap.wizard.min.js"></script>
+    <script src="vendor/datepicker/moment.min.js"></script>
+    <script src="vendor/datepicker/daterangepicker.js"></script>
+        
 </html>

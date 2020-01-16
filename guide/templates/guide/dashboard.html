@@ -5,20 +5,91 @@
         <title>Dashboard</title>
     
         <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.2.1/css/bootstrap.min.css" integrity="sha384-GJzZqFGwb1QTTN6wy59ffF1BuGJpLSa9DkKMp0DgiMDm4iYMj70gZWKYbI706tWS" crossorigin="anonymous">
+        <style>
+                .btn-huge{
+                 padding-top:20px;
+                 padding-bottom:20px;
+                }
+                #b.button:hover {background-color: #3e8e41}
+                
+
+                
+}   
+            </style>
+        
     </head>
-    
-    <style>
-        /* img.resize {
-            width:540px; 
-            height: auto;
-        } */
-    </style>
+  
+   
     <body>
+        
         {% block content %}
-         <legend>Hello {{user.username}}</legend>
-        <a href="{% url 'ServiceForm' %}">Set Up a Service</a>
+
+        <!-- <div style=" 
+        border-radius: 25px;
+        padding: 20px;
+        top: 0px;
+        right: 10px;
+        float: right;
+        position: relative;>
+                 <div class="col-md-3">
+                        <a href="{% url 'ServiceForm' %}"  style="background-color: forestgreen;color: white;border-radius: 10px;" class="btn btn-default btn-lg btn-block btn-huge">REGISETER YOUR SERVICE</a>
+                    </div>
+    
+            </div> -->
+
+            <!-- <div style=" min-width: 200px;
+            border-radius: 25px;
+            padding: 20px;
+            top: 900px;
+            right: 10px;
+            float: right;
+            position: relative;
+            background-color: whitesmoke;" class="">
+                   <p>YOUR</p>
+                   <br>
+                   <br>
+                   <p>Ads</p>
+                   <br>
+                   <br>
+                   <p>HERE</p>
+                </div> -->
+        <h3 style="text-align:center;font-size: xx-large;">Hello, Mr {{user.first_name}}. What are you looking for?</h3>    <br> <br> 
+        <div class="row">
+                <div class="col-md-3">
+                    <a href="{% url 'homestay' %}" id="b" style="background-color: forestgreen;color: white;border-radius: 10px;" class="btn btn-default btn-lg btn-block btn-huge">HOMESTAYS</a>
+                </div>
+                <div class="col-md-3">
+                    <a href="{% url 'transport' %}"style="background-color: forestgreen;color: white;border-radius: 10px;" class="btn btn-default btn-lg btn-block btn-huge" class="btn btn-default btn-lg btn-block btn-huge">TRANSPORTATION</a>
+                </div>
+                <div class="col-md-3">
+                    <a href="{% url 'travel' %}" style="background-color: forestgreen;color: white;border-radius: 10px;" class="btn btn-default btn-lg btn-block btn-huge" class="btn btn-default btn-lg btn-block btn-huge">TRAVEL AGENCIES</a>
+                </div>
+                <div class="col-md-3">
+                    <a href="{% url 'hotel' %}" style="background-color: forestgreen;color: white;border-radius: 10px;" class="btn btn-default btn-lg btn-block btn-huge"class="btn btn-default btn-lg btn-block btn-huge">HOTELS</a>
+                </div>
+                <br>
+            </div>
+
+
+        <!-- <div class="container ">
+                <div class="btn-group">
+                        <button type="button" style="background-color:black;" class="btn btn-primary btn-lg">HOMESTAYS</button>
+                        <button type="button" class="btn btn-primary btn-lg">TRANSPORTATION</button>
+                        <button type="button" class="btn btn-primary btn-lg">TRAVEL AGENCIES</button>
+                        <button type="button" class="btn btn-primary btn-lg">HOTELS</button>
+
+
+                      </div>
+        </div> -->
+         
+        
         <br>
         <br>
+
+       <hr> <h3 style="text-align:center;">Recent Services:</h3><hr>
+       <br>
+       <br>
+       <br>
         {% comment %} {% for post in posts %}
             <h2>{{post.name_of_service}}</h2>
             <small> {{post.type_of_service}} </small>
@@ -28,27 +99,30 @@
         {% for post in posts reversed %}
             {% if post.name_of_service%}
                 <div class="container">
-                        <div class="col-md-8">
+                        <div class="col-md-10">
 								<div class="post post-row">
 								    <a class="post-img" href="#"> 
                                     
                                     {% if post.image %}
-                                        <img src="{{ post.image.url }}">
+                                        <img style="width:150%; height: 150%;border-radius:25px;" src="{{ post.image.url }}">
                                         {% endif %}
 
                                     
                                     </a> 
 									<div class="post-body">
 										<div class="post-meta">
-											<a class="post-category cat-2" href="#">{{post.type_of_service}}</a>
+											<a class="post-category cat-1" href="#">{{post.type_of_service}}</a>
 											<span class="post-date">{{post.location}}</span>
 										</div>
 										<h3 class="post-title"><a href="{% url 'posts' post.id %}">{{post.name_of_service}}</a></h3>
-										<p>{{ post.short_description }}</p>
+                                        <p style="color:black;">{{ post.short_description }}</p>
+                                        <hr>
 									</div>
 								</div>
                             </div>
                 </div>
+                <br>
+                <br>
             {% endif%}
         {% endfor %}
         {% endblock content %}

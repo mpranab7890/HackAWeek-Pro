@@ -1,0 +1,52 @@
+{% extends "guide/base.html" %}
+{% load static %}
+<html>
+    <head>
+        <title>Travel Agencies</title>
+    
+        <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.2.1/css/bootstrap.min.css" integrity="sha384-GJzZqFGwb1QTTN6wy59ffF1BuGJpLSa9DkKMp0DgiMDm4iYMj70gZWKYbI706tWS" crossorigin="anonymous">
+    </head>
+    
+    <style>
+        /* img.resize {
+            width:540px; 
+            height: auto;
+        } */
+    </style>
+    <body>
+        {% block content %}
+         <div class="jumbotron">
+             <h3>Travel Agencies</h3>
+
+         </div>
+        <br>
+        <br>
+        {% for post in posts reversed %}
+        {% if post.name_of_service%}
+            <div class="container">
+                    <div class="col-md-10">
+                            <div class="post post-row">
+                                <a class="post-img" href="#"> 
+                                
+                                {% if post.image %}
+                                    <img style="width:150%; height: 150%;border-radius:25px;" src="{{ post.image.url }}">
+                                    {% endif %}
+
+                                
+                                </a> 
+                                <div class="post-body">
+                                    <div class="post-meta">
+                                        <a class="post-category cat-1" href="#">{{post.type_of_service}}</a>
+                                        <span class="post-date">{{post.location}}</span>
+                                    </div>
+                                    <h3 class="post-title"><a href="{% url 'posts' post.id %}">{{post.name_of_service}}</a></h3>
+                                    <p style="color:black";>{{ post.short_description }}</p>
+                                </div>
+                            </div>
+                        </div>
+            </div>
+        {% endif%}
+    {% endfor %}
+    {% endblock content %}
+</body>
+</html>

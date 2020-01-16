@@ -1,5 +1,6 @@
 
 {% extends "guide/base.html" %}
+{% load crispy_forms_tags %}
 {% load static %}
 {% block content %}
 <style>
@@ -17,14 +18,46 @@ blockquote
 }
 
 p{
-	font-family: Cambria, Cochin, Georgia, Times, 'Times New Roman', serif;
+	font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, 'Open Sans', 'Helvetica Neue', sans-serif;
 	font-size: large;
+	color: black;
 	font-weight: 100;
 }
 img{
 	width:100%;
 	height: 100%;
 }
+.revi{
+	font-style: italic;
+	font-size: medium;
+	font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+}
+
+.review{
+	max-width: 300px;
+	border-radius: 25px;
+	padding: 20px;
+    top: 400px;
+	right: 200px;
+	float: right;
+	position: absolute;
+	background-color: whitesmoke;
+}
+.book{
+	max-width: 300px;
+	border-radius: 25px;
+	padding: 20px;
+    top: -70px;
+	right: -310px;
+	float: right;
+	position: absolute;
+	/* background-color: whitesmoke; */
+}
+/* .rev{
+	float: right;
+	position: fixed;
+	border: 2px solid rgb(1, 5, 7);
+	/* padding-left: 10px; */
 </style>
 <div id="post-header" class="page-header">
 				<div class="background-img" 
@@ -39,7 +72,7 @@ img{
 					<div class="row">
 						<div class="col-md-10">
 							<div class="post-meta">
-								<a class="post-category cat-2" href="#">{{post.type_of_service}}</a>
+								<a class="post-category cat-1" href="#">{{post.type_of_service}}</a>
 								<span class="post-date"> </span>
 							</div>
 							<h1>{{post.name_of_service}}</h1>
@@ -47,8 +80,19 @@ img{
 					</div>
 				</div>
 			</div>
-	
-
+		
+			<div class='review'>
+					<h4 style="font-family:'Trebuchet MS', 'Lucida Sans Unicode', 'Lucida Grande', 'Lucida Sans', Arial, sans-serif;"> Reviews: </h4>
+						<br>
+						<br>
+					{% for r in reviews%}
+						<small><a class='' href="#">{{r.author}}</a> </small>
+						<small>{{r.date}}</small>
+						 <p class="revi"> &emsp; {{ r.review }}</p>
+						<br>
+						<br>
+					{% endfor%}
+			</div>
 		<!-- section -->
 		<div class="section">
 			<!-- container -->
@@ -75,11 +119,76 @@ img{
 								</figure>
 
 								{% if post.special_features%}
-									 <h2>Special Features</h2>
+									 <h4>Special Features</h4>
+									 <br>
 									 <p>{{post.special_features}}</p>
+									 <br>
+									 <br>
+									 <div class="book">
+											<a href="/posts/{{post.id}}/book" id="b" style="background-color: forestgreen;color: white;border-radius: 10px;" class="btn btn-default btn-lg btn-block btn-huge ">BOOK THIS SERVICE</a>
+										</div>
+									 <br>
 
+
+								
 								{%endif%}
 								
+
+								<!-- <div class="section-row">
+										<div class="section-title">
+											<h2> Reviews: </h2>
+										</div>
+										{% for r in reviews%}
+										<div class="post-comments">
+											<!-- comment -->
+											<!-- <div class="media">
+												<div class="media-left">
+													<img class="media-object" src="#" alt="">
+												</div>
+												<div class="media-body">
+													<div class="media-heading">
+														<h4>{{r.author}}</h4>
+														<span class="time"></span>
+														<!-- <a href="#" class="reply">Reply</a> -->
+													<!-- </div>
+													<p>{{ r.review }}</p> -->
+										<!-- {% endfor%} --> 
+
+								<!-- <div class="col-sm-6">
+										<div class="panel-heading"></div>
+										<div class="panel-body" style="border-style: rounded;">
+									   <form method="POST">
+												{% csrf_token %}
+												{{ form|crispy }}
+												<button type="submit"class="btn btn-primary">Submit</button>
+											  </form>
+										</div>
+									</div> -->
+
+									
+
+									<div class="section-row">
+											<div class="section-title">
+												<h4>Write a review</h4>
+												<br>
+												<br>
+											</div>
+											<form  method="POST">
+													{% csrf_token %}
+													<div class="col-md-12">
+														<div class="form-group">
+    															{{ form.review }}
+														</div>
+														<button class="btn btn-primary">Submit</button>
+														<br>
+														<br>
+														
+													</div>
+												</div>
+											</form>
+										</div>
+										<!-- /reply -->
+									</div>
 		 					</div>
 					  	</div>
 					</div>
