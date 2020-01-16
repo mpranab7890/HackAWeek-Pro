@@ -7,6 +7,7 @@ urlpatterns = [
     path('', views.dashboard , name= 'dashboard'),
     path('serviceform', views.setService , name = 'ServiceForm'),
     path('profile' , views.Profile , name = 'profile'),
+    
 ]
 
 if settings.DEBUG:
