@@ -2,6 +2,7 @@ from django.db import models
 from django.contrib.auth.models import User
 from django.db.models.signals import post_save
 from django.dispatch import receiver
+from datetime import datetime    
 
 # class UserProfile(models.Model):
 #     user = models.OneToOneField(User, on_delete=models.CASCADE)
@@ -37,6 +38,9 @@ class Profile(models.Model) :
 class Review(models.Model):
     posts = models.ForeignKey(UserServices , related_name = 'Reviews',on_delete=models.CASCADE)
     review = models.TextField(blank = True)
+    author = models.CharField(max_length = 50)
+    date = models.DateTimeField(default=datetime.now, blank=True)
+
 
     def __str__(self):
         return f'{self.posts.name_of_service} Reviews'

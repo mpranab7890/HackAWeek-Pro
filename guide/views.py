@@ -1,14 +1,19 @@
 from django.shortcuts import render,redirect,get_object_or_404
 from django.http import HttpResponse
-from .forms import RegistrationForm, ServiceForm ,ReviewForm
+from django.http import HttpResponseRedirect
+from .forms import RegistrationForm, ServiceForm ,ReviewForm, BookForm
 from django.contrib import messages
 from .models import UserServices, Review
 from django.contrib.auth.decorators import login_required
 from django.contrib.auth.models import User
 from django.views.generic import DetailView
+from django.conf import settings
+from django.core.mail import send_mail
+
+
 # from annoying.decorators import render_to
 
-from django.shortcuts import render_to_response
+# from django.shortcuts import render_to_response
 from django.template import RequestContext
 
 
@@ -90,8 +95,74 @@ def Profile(request):
 #                     return redirect('posts')
 #                else:
 #                     r_form = ReviewForm()
-
+@login_required
 def DetailView(request,pk):
      # post = get_object_or_404(UserServices, slug=slug)
      post = UserServices.objects.get(pk=pk)
-     return render(request ,'guide/posts.html', {'post': post})
+     
+     if request.method=='POST':
+          r_form = ReviewForm( request.POST )
+          if r_form.is_valid():
+               x=r_form.save(commit=False)
+               x.posts = post
+               x.author = request.user.username
+               x.save()
+               
+               return HttpResponseRedirect(request.META.get('HTTP_REFERER'))
+     else:
+          r_form = ReviewForm()
+
+     reviews = Review.objects.filter(posts = post)
+
+     return render(request ,'guide/posts.html', {
+          'post':post,
+          'form': r_form,
+          'reviews':reviews,
+     })
+
+@login_required
+def homestayView(request):
+     posts = UserServices.objects.filter(type_of_service = 'Homestay')
+     return render(request , 'guide/homestay.html', {'posts':posts})
+
+@login_required
+def transportView(request):
+     posts = UserServices.objects.filter(type_of_service = 'Transportation')
+     return render(request , 'guide/transport.html', {'posts':posts})
+
+@login_required
+def hotelView(request):
+     posts = UserServices.objects.filter(type_of_service = 'Hotel')
+     return render(request , 'guide/hotel.html', {'posts':posts})
+
+@login_required
+def travelagencyView(request):
+     posts = UserServices.objects.filter(type_of_service = 'Travel Agency')
+     return render(request , 'guide/travel.html', {'posts':posts})
+
+@login_required
+def bookView(request,pk):
+     post = UserServices.objects.get(pk=pk)
+     if request.method=='POST':
+          form = BookForm( request.POST )
+          if form.is_valid():
+               data = form.cleaned_data
+               date1 = str(data['date'])
+          subject = 'Thank you for registering to our site'
+          
+          u = request.user.first_name
+          e= request.user.email
+          message = 'Hello Miss '+post.user.first_name+'. '+'Mr. '+ u + ' wants to book '+ post.name_of_service + ' for ' + date1 + '. Please contact him through Namaste webapp or through his email '+ e + ". Thank you for using Namaste." 
+          
+         
+          email_from = settings.EMAIL_HOST_USER
+          recipient_list = [post.user.email]
+          send_mail( subject, message, email_from, recipient_list )
+          return redirect('dashboard')
+
+     
+     else:
+          form = BookForm()
+
+
+     return render(request, 'guide/book.html', {'form': form, 'post':post})

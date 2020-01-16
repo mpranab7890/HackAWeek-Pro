@@ -27,9 +27,14 @@ class ReviewForm(forms.ModelForm):
         fields = ['review']
         widgets = {
             'posts': forms.HiddenInput,
+            'author': forms.HiddenInput,
+            'date': forms.HiddenInput,
         }
 
-
+    def __init__(self, *args, **kwargs):
+        super(ReviewForm, self).__init__(*args, **kwargs) # Call to ModelForm constructor
+        self.fields['review'].widget.attrs['cols'] = 4
+        self.fields['review'].widget.attrs['rows'] = 5
 # def save(self, commit=True):
 #     instance = super(RegistrationForm, self).save(commit=False)
 #     instance.user = self.user
@@ -42,4 +47,9 @@ class ReviewForm(forms.ModelForm):
 #     u = UserProfileInfo(user=user)
 #     u.save()
 
-     
+class BookForm(forms.Form):
+    date = forms.DateField( required=True,widget=forms.DateInput(attrs={'placeholder': 'Enter date in dd/mm/yyy format'}))
+
+
+ 
+        
